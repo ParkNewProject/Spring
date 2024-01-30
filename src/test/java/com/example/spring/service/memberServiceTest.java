@@ -4,17 +4,26 @@ import com.example.spring.domain.Member;
 import com.example.spring.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class memberServiceTest {
-    MemberService memberService = new MemberService();
-    MemoryMemberRepository memoryMemberRepository = new MemoryMemberRepository();
+    MemberService memberService;
+    MemoryMemberRepository memberRepository;
+
+    @BeforeEach
+    public void beforeEach(){
+        // DI
+        memberRepository = new MemoryMemberRepository();
+        memberService = new MemberService(memberRepository);
+
+    }
 
     @AfterEach
     public void afterEach(){
-        memoryMemberRepository.clearStore();
+        memberRepository.clearStore();
     }
 
 
